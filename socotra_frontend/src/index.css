@@ -10,17 +10,20 @@
 
 
 /* Navbar Styles */
+/* Navbar Base */
 .nb {
-    background-color: #1a237e;
-    /* Dark blue background */
+    background: linear-gradient(135deg, #0288d1, #004d40);
+    /* Sky blue → teal ocean */
     color: white;
     padding: 1rem 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 5px solid #4dd0e1; /* wave accent */
 }
 
+/* Container */
 .nb-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -29,6 +32,7 @@
     align-items: center;
 }
 
+/* Branding */
 .nb-brand {
     display: flex;
     align-items: center;
@@ -36,22 +40,40 @@
 
 .nb-logo {
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
     display: flex;
     align-items: center;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+}
+
+.nb-logo:hover {
+    transform: translateX(4px);
 }
 
 .logo-airline {
-    color: #ffab00;
-    /* Gold color for the airline name */
-    margin-right: 0.3rem;
+    color: #ffeb3b; /* sun/gold */
+    margin-right: 0.4rem;
 }
 
 .logo-text {
     color: white;
 }
 
+/* Plane Icon */
+.logo-plane {
+    margin-left: 0.5rem;
+    font-size: 1.3rem;
+    color: #4dd0e1;
+    transition: transform 0.4s ease;
+}
+
+.nb-logo:hover .logo-plane {
+    transform: translateX(6px) rotate(10deg);
+}
+
+/* Links */
 .nb-links {
     display: flex;
     align-items: center;
@@ -68,57 +90,59 @@
 }
 
 .nav-link:hover {
-    color: #ffab00;
-    /* Gold color on hover */
+    color: #4dd0e1;
 }
 
+/* Animated underline */
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -3px;
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #ffab00;
+    background: #4dd0e1;
     transition: width 0.3s ease;
+    border-radius: 2px;
 }
 
 .nav-link:hover::after {
     width: 100%;
 }
 
+/* Buttons */
 .nav-button {
     background: none;
-    border: 1px solid white;
+    border: 2px solid white;
     color: white;
     padding: 0.5rem 1.2rem;
-    border-radius: 4px;
+    border-radius: 25px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, transform 0.2s ease;
 }
 
 .nav-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
 }
 
+/* Primary CTA */
 .nav-button-primary {
-    background-color: #ffab00;
-    border-color: #ffab00;
-    color: #1a237e;
+    background: linear-gradient(135deg, #4dd0e1, #1de9b6);
+    border: none;
+    color: #004d40;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .nav-button-primary:hover {
-    background-color: #ffb300;
-    border-color: #ffb300;
+    background: linear-gradient(135deg, #1de9b6, #00acc1);
+    transform: translateY(-2px) scale(1.05);
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-    .nb {
-        padding: 1rem;
-    }
-
     .nb-container {
         flex-direction: column;
         align-items: flex-start;
@@ -129,17 +153,16 @@
         flex-direction: column;
         gap: 0.5rem;
         margin-top: 1rem;
-        display: none;
+        display: none; /* you can toggle this with JS for mobile menu */
     }
 
     .nav-link,
     .nav-button {
         width: 100%;
-        padding: 0.8rem 0;
         text-align: center;
     }
-
 }
+
 
 
 
