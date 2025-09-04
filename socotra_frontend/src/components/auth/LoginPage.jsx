@@ -19,34 +19,49 @@ const LoginPage = () => {
     };
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+ const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if (!formData.email || !formData.password) {
-            showError("Email & password are required")
-            return;
+    // Trim inputs to avoid whitespace errors
+    const email = formData.email.trim();
+    const password = formData.password.trim();
+
+    // Frontend validations
+    if (!email || !password) {
+        showError("Email & password are required");
+        return;
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showError("Please enter a valid email");
+        return;
+    }
+
+    // Password length validation
+    if (password.length < 8) {
+        showError("Password must be at least 8 characters");
+        return;
+    }
+
+    // If all validations pass, send API request
+    const loginData = { email, password };
+
+    try {
+        const response = await ApiService.loginUser(loginData);
+        if (response.statusCode === 200) {
+            ApiService.saveRole(response.data.roles);
+            ApiService.saveToken(response.data.token);
+            navigate("/home");
+        } else {
+            showError(response.message);
         }
+    } catch (error) {
+        showError(error.response?.data?.message || error.message);
+    }
+};
 
-        const loginData = {
-            email: formData.email,
-            password: formData.password
-        };
-
-        try {
-            const response = await ApiService.loginUser(loginData);
-            if (response.statusCode === 200) {
-                ApiService.saveRole(response.data.roles)
-                ApiService.saveToken(response.data.token)
-                navigate("/home")
-            } else {
-                showError(response.message);
-            }
-
-        } catch (error) {
-            showError(error.response?.data?.message || error.message);
-
-        }
-    };
 
 
     return (

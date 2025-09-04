@@ -5,6 +5,8 @@ import RegisterPage from "./components/auth/RegisterPage";
 import LoginPage from "./components/auth/LoginPage";
 import HomePage from "./components/pages/HomePage";
 import FindFlightsPage from "./components/pages/FindFlightPge";
+import ProfilePage from "./components/profile/ProfilePage";
+
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
            <Route path="/home" element={<HomePage/>}/> 
             <Route path="/flights" element={<FindFlightsPage/>}/>
+            <Route path="/profile" element={<ProfilePage/>}/>
         </Routes>
 
       </div>

@@ -20,41 +20,64 @@ const RegisterPage = ()=>{
         setFormData({...formData , [e.target.name] : e.target.value})
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if(!formData.name || !formData.email || !formData.password || !formData.phoneNumber || !formData.confirmedPassword){
-            showError("All fields are required")
-            return ; 
-        }
+   const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if(formData.password !== formData.confirmedPassword){
-            showError("Passowrd and confirmed Passwrad must match !")
-            return ; 
+    // Trim inputs to remove extra spaces
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const password = formData.password.trim();
+    const confirmedPassword = formData.confirmedPassword.trim();
+    const phoneNumber = formData.phoneNumber.trim();
 
-
-        }
-        const registrationData = {
-            name :formData.name , 
-            email : formData.email , 
-            password : formData.password , 
-            phoneNumber : formData.phoneNumber 
-        }; 
-
-        try {
-            const respone = await ApiService.registerUser(registrationData) ; 
-            if (respone.statusCode === 200){
-                showSuccess("User successfully registered")
-                navigate("/login")
-            }
-            else {
-                showError(respone.message) ; 
-            }
-        } catch (error) {
-
-            showError(error.respone?.data?.message ||error.message) ; 
-            
-        }
+    // 1. Check required fields
+    if (!name || !email || !password || !confirmedPassword || !phoneNumber) {
+        showError("All fields are required");
+        return;
     }
+
+    // 2. Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showError("Please enter a valid email");
+        return;
+    }
+
+    // 3. Check password length
+    if (password.length < 8) {
+        showError("Password must be at least 8 characters");
+        return;
+    }
+
+    // 4. Check password confirmation
+    if (password !== confirmedPassword) {
+        showError("Password and confirmed password must match!");
+        return;
+    }
+
+    // Prepare data for API
+    const registrationData = {
+        name,
+        email,
+        password,
+        phoneNumber
+    };
+
+    try {
+        const response = await ApiService.registerUser(registrationData);
+
+        if (response.statusCode === 200) {
+            showSuccess("User successfully registered");
+            navigate("/login");
+        } else {
+            showError(response.message);
+        }
+
+    } catch (error) {
+        showError(error.response?.data?.message || error.message);
+    }
+};
+
 
     return(
         <div className="auth-page">
