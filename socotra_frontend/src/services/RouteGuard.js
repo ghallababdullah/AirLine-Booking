@@ -1,39 +1,34 @@
 import { Navigate, useLocation } from "react-router-dom";
 import ApiService from "./ApiService";
-import { Component } from "react";
-export default RouteGuard = ({ element: Component, allowedRoles }) => {
+
+export const RouteGuard = ({ element: Component, allowedRoles }) => {
     const location = useLocation();
 
     let hasRequiredRole = false;
+
     if (!allowedRoles || allowedRoles.length === 0) {
-
-        hasRequiredRole = false
-
+        hasRequiredRole = false; // Deny access if no roles are explicitly allowed
     } else {
         hasRequiredRole = allowedRoles.some(role => {
-            if (role === "ADMIN") {
-
+            
+            //check id the user has the mactching roles needed to access the route
+            if (role === 'ADMIN') {
                 return ApiService.isAdmin();
-
-            }
-            else if (role === "PILOT") {
+            } else if (role === 'PILOT') {
                 return ApiService.isPilot();
-            }
-            else if (role === "CUSTOMER") {
+            } else if (role === 'CUSTOMER') {
                 return ApiService.isCustomer();
             }
 
             return false;
-
         });
-        if (hasRequiredRole) {
-            return Component;
-            
-        }else{
-            return<Navigate to ="/login" replace state={{from : location}}/>  
-        }
-
     }
 
-}
-
+    // If the user has the required role(s), render the component
+    if (hasRequiredRole) {
+        return Component;
+    } else {
+        // If not authorized, redirect to the login page
+        return <Navigate to="/login" replace state={{ from: location }} />;
+    }
+};

@@ -24,7 +24,7 @@ const Navbar = () => {
         <nav className="nb">
             <div className="nb-container">
                 <div className="nb-brand">
-                    <Link to="/home" className="ng-logo">
+                    <Link to="/home" className="nb-logo">
                         <span className="logo-airline">Socotra</span>
                         <span className="logo-text">Airline</span>
                         <span className="logo-plane">✈️</span>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 import { useMessage } from "../common/MessageDisplay";
+import { useTranslation } from 'react-i18next';
 
 const FindFlightsPage = () => {
 
@@ -15,6 +16,14 @@ const FindFlightsPage = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
+      const { t, i18n } = useTranslation();
+          useEffect(() => {
+            if (i18n.language === 'ar') {
+                document.documentElement.dir = 'rtl';
+            } else {
+                document.documentElement.dir = 'ltr';
+            }
+        }, [i18n.language]);
 
 
     const [searchParams, setSearchParams] = useState({

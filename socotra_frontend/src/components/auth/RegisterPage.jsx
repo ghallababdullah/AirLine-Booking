@@ -15,6 +15,7 @@ const RegisterPage = ()=>{
         phoneNumber :'' ,
         confirmedPassword :'' 
     });
+    
 
     const handleChange =(e) =>{
         setFormData({...formData , [e.target.name] : e.target.value})
