@@ -16,30 +16,26 @@ import java.util.List;
 @NoArgsConstructor
 public class FlightDTO {
 
-    private long id;
+    private Long id;
 
     private String flightNumber;
 
-    private FlightStatus FlightStatus;
+    private FlightStatus status;
 
-    private Airport departureAirport;
+    private AirportDTO departureAirport;
 
-    private Airport ArrivalAirport;
+    private AirportDTO arrivalAirport;
 
     private LocalDateTime departureTime;
-
     private LocalDateTime arrivalTime;
-
     private BigDecimal basePrice;
 
-
-    private User assignedPilot;
-
+    private UserDTO assignedPilot;
 
     private List<BookingDTO> bookings;
 
     private String departureAirportIataCode;
-    private String ArrivalAirportAirportIataCode;
+    private String arrivalAirportIataCode;
 
 
 }

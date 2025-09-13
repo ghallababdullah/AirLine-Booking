@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Flight {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,5 +46,5 @@ public class Flight {
     @OneToMany(mappedBy = "flight")
     private List<Booking> bookings = new ArrayList<>();
 
-
 }
+//this is updated

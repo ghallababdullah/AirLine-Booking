@@ -200,8 +200,8 @@ const AdminDashboardPage = () => {
                                             <div className="admin-flight-number">
                                                 {flight.flightNumber}
                                             </div>
-                                            <div className={`admin-flight-status ${flight.flightStatus?.toLowerCase() || "unknown"}`}>
-                                                {flight.flightStatus || "Unknown"}
+                                            <div className={`admin-flight-status ${flight.status?.toLowerCase() || "unknown"}`}>
+                                                {flight.status || "Unknown"}
                                             </div>
                                         </div>
 

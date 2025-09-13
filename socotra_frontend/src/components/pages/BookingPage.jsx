@@ -8,6 +8,8 @@ const BookingPage = () => {
     const { state } = useLocation();
     const { ErrorDisplay, SuccessDisplay, showError, showSuccess } = useMessage();
     const navigate = useNavigate();
+      const isAdmin = ApiService.isAdmin();
+        const isPilot = ApiService.isPilot();
 
 
     const [flight, setFlight] = useState(null);

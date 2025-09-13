@@ -87,8 +87,8 @@ const AdminFlightDetailsPage = () => {
                         <div className="admin-flight-number">
                             Flight: {flight.flightNumber}
                         </div>
-                        <div className={`admin-flight-status ${flight.flightStatus .toLowerCase()}`}>
-                            Current Status: {flight.flightStatus }
+                        <div className={`admin-flight-status ${flight.status .toLowerCase()}`}>
+                            Current Status: {flight.status }
                         </div>
                     </div>
 

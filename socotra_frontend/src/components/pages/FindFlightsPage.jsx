@@ -4,6 +4,7 @@ import ApiService from "../../services/ApiService";
 import { useMessage } from "../common/MessageDisplay";
 import { useTranslation } from 'react-i18next';
 
+
 const FindFlightsPage = () => {
 
 
@@ -12,18 +13,21 @@ const FindFlightsPage = () => {
     const [flights, setFlights] = useState([]);
     const [airports, setAirports] = useState([]);
     const [loading, setLoading] = useState(true);
+    const isAdmin = ApiService.isAdmin();
+    const isPilot = ApiService.isPilot();
+    const isCustomer = ApiService.isCustomer();
 
 
     const location = useLocation();
     const navigate = useNavigate();
-      const { t, i18n } = useTranslation();
-          useEffect(() => {
-            if (i18n.language === 'ar') {
-                document.documentElement.dir = 'rtl';
-            } else {
-                document.documentElement.dir = 'ltr';
-            }
-        }, [i18n.language]);
+    const { t, i18n } = useTranslation();
+    useEffect(() => {
+        if (i18n.language === 'ar') {
+            document.documentElement.dir = 'rtl';
+        } else {
+            document.documentElement.dir = 'ltr';
+        }
+    }, [i18n.language]);
 
 
     const [searchParams, setSearchParams] = useState({
@@ -244,8 +248,8 @@ const FindFlightsPage = () => {
                                         <div className="flight-number">
                                             {flight.flightNumber}
                                         </div>
-                                        <div className={`flight-status ${flight.flightStatus ? flight.flightStatus.toLowerCase() : ""}`}>
-                                            {flight.flightStatus || "Unknown"}
+                                        <div className={`flight-status ${flight.status ? flight.status.toLowerCase() : ""}`}>
+                                            {flight.status || "Unknown"}
                                         </div>
 
                                     </div>
@@ -279,15 +283,18 @@ const FindFlightsPage = () => {
                                             ${flight.basePrice.toFixed(2)}
                                         </div>
                                     </div>
-
+                                   
+                                    
+                                        
+                                   
                                     <div className="flight-actions">
-                                        <Link
+                                        {isCustomer && (<Link
                                             to={`/book-flight/${flight.id}`}
                                             state={{ flight }}
                                             className="book-button"
                                         >
                                             Book Now
-                                        </Link>
+                                        </Link> )}
                                     </div>
                                 </div>
                             ))}

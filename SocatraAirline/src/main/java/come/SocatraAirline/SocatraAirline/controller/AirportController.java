@@ -20,7 +20,7 @@ public class AirportController {
     private final AirportService airportService ;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN' ,'PILOT')")
     public ResponseEntity<Response<?>> createAirport(@Valid @RequestBody AirportDTO airportDTO ){
 
 
@@ -28,7 +28,7 @@ public class AirportController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN' ,'PILOT')")
     public ResponseEntity<Response<?>> updateAirport( @RequestBody AirportDTO airportDTO ){
 
 
