@@ -36,7 +36,7 @@ public class Booking {
 
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
-    private  List<Passenger> Passengers = new ArrayList<>();
+    private  List<Passenger> passengers = new ArrayList<>();
 
 
 }
