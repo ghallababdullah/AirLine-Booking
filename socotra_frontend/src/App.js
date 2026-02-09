@@ -51,7 +51,7 @@ function App() {
           {/* ADMIN & PILOT PAGES */}
           <Route path="/admin" element={<RouteGuard allowedRoles={["ADMIN", "PILOT"]} element={<AdminDashboardPage/>}/>}/>
           <Route path="/admin/booking/:id" element={<RouteGuard allowedRoles={["ADMIN", "PILOT"]} element={<AdminBookingDetailsPage/>}/>}/>
-          <Route path="/admin/flight/:id" element={<RouteGuard allowedRoles={["PILOT"]} element={<AdminFlightDetailsPage/>}/>}/>
+          <Route path="/admin/flight/:id" element={<RouteGuard allowedRoles={["PILOT" ,"ADMIN" ]} element={<AdminFlightDetailsPage/>}/>}/>
 
 
           <Route path="/add-airport" element={<RouteGuard allowedRoles={["ADMIN"]} element={<AddEditAirportPage/>}/>}/>
