@@ -1,0 +1,50 @@
+# Название workflow (будет видно в GitHub Actions)
+name: Java CI with Maven
+
+# Когда запускать этот workflow
+on:
+  push:
+    branches: [ main, master ]  # При push в ветки main или master
+  pull_request:
+    branches: [ main, master ]  # При создании Pull Request в main/master
+
+# Задачи (jobs)
+jobs:
+  build:  # Название задачи
+    runs-on: ubuntu-latest  # На какой ОС запускать (виртуальная машина с Ubuntu)
+
+    # Шаги (steps) — что делать по порядку
+    steps:
+    # Шаг 1: Скачать код из репозитория
+    - name: Checkout code
+      uses: actions/checkout@v3
+      # uses: действие, которое уже кто-то написал (GitHub предоставляет)
+      # checkout@v3 = скачивает твой код в runner
+
+    # Шаг 2: Установить Java
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'  # Версия Java (поменяй на свою, если друг��я)
+        distribution: 'temurin'  # Дистрибутив (temurin = Eclipse Temurin, бывший AdoptOpenJDK)
+
+    # Шаг 3: Кешировать Maven зависимости (чтобы не скачивать каждый раз)
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2  # Папка, где Maven хранит зависимости
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        # Ключ кеша: если pom.xml изменился → кеш обновится
+        restore-keys: ${{ runner.os }}-m2
+
+    # Шаг 4: Собрать проект
+    - name: Build with Maven
+      run: mvn clean install -DskipTests
+      # clean = удалить старые файлы сборки
+      # install = скомпилировать + упаковать в jar
+      # -DskipTests = пропустить тесты на этом шаге (запустим отдельно)
+
+    # Шаг 5: Запустить тесты
+    - name: Run tests
+      run: mvn test
+      # Если тестов нет — этот шаг пройдёт быстро (0 tests)
